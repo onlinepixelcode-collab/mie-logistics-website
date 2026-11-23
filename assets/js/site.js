@@ -85,6 +85,8 @@
 
   if (!hasGsap) return;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.clearScrollMemory('manual');   // always start a page at the top (unless a #hash is targeted)
+  if (!location.hash) scrollTo(0, 0);
 
   /* ---------- smooth scroll ---------- */
   if (!reduce && window.Lenis) {
