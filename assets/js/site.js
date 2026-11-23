@@ -473,6 +473,15 @@
     const chips = $$('#cities li');
     const light = (id, on) => { $$(`[data-city="${id}"]`, svg).forEach(n => n.classList.toggle('is-on', on)); chips.forEach(ch => ch.classList.toggle('is-on', on && ch.dataset.city === id)); };
     chips.forEach(ch => { ch.addEventListener('mouseenter', () => light(ch.dataset.city, true)); ch.addEventListener('mouseleave', () => light(ch.dataset.city, false)); });
+    const SLUG = { jhb: 'johannesburg', cpt: 'cape-town', gqb: 'gqeberha', el: 'east-london', blm: 'bloemfontein', plk: 'polokwane', mbm: 'mbombela' };
+    const goRoute = id => { if (SLUG[id]) location.href = `car-transport-durban-to-${SLUG[id]}.html`; };
+    chips.forEach(ch => {
+      if (!SLUG[ch.dataset.city]) return;
+      ch.tabIndex = 0; ch.setAttribute('role', 'link'); ch.style.cursor = 'pointer';
+      ch.addEventListener('click', () => goRoute(ch.dataset.city));
+      ch.addEventListener('keydown', e => { if (e.key === 'Enter') goRoute(ch.dataset.city); });
+    });
+    $$('.map-city', svg).forEach(g => { g.style.cursor = 'pointer'; g.addEventListener('click', () => goRoute(g.dataset.city)); });
     $$('.map-city', svg).forEach(g => { g.addEventListener('mouseenter', () => light(g.dataset.city, true)); g.addEventListener('mouseleave', () => light(g.dataset.city, false)); });
   }
 

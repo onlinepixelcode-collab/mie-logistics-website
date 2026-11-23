@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://onlinepixelcode-collab.github.io/mie-logistics-website/sitemap.xml

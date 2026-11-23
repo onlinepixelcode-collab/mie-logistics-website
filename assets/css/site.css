@@ -870,3 +870,42 @@ html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:
 /* safety net: if the script never loads, the intro curtain lifts on its own */
 .curtain{animation:curtainfail .01s 4.5s forwards}
 @keyframes curtainfail{to{visibility:hidden}}
+
+/* ================= ROUTE PAGES ================= */
+.rt-hero{position:relative;isolation:isolate;min-height:92svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--bg)}
+.rt-hero__bg{position:absolute;inset:0;z-index:-1}
+.rt-hero__bg img{width:100%;height:100%;object-fit:cover}
+.rt-hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,11,.95) 0%,rgba(8,9,11,.8) 42%,rgba(8,9,11,.35) 100%),linear-gradient(0deg,rgba(8,9,11,1) 0%,rgba(8,9,11,0) 45%)}
+.rt-hero__in{padding-top:calc(var(--nav-h) + 48px);padding-bottom:40px}
+.rt-hero .lede{max-width:60ch}
+.rt-hero .cta__row{margin-top:30px}
+.rt-kicker{font-size:.42em;letter-spacing:.06em;color:var(--soft)}
+.crumbs{display:flex;flex-wrap:wrap;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:26px}
+.crumbs a{color:var(--soft)}
+.crumbs [aria-current]{color:var(--accent-2)}
+.rt-strip{border-top:1px solid var(--line);background:rgba(8,9,11,.5);backdrop-filter:blur(10px)}
+.rt-body{padding:clamp(96px,12vw,160px) 0;background:var(--bg)}
+.rt-body__grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(32px,5vw,80px);align-items:start}
+.rt-steps{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+.rt-steps li{display:grid;grid-template-columns:52px 1fr;gap:14px;padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.rt-steps li>span{font:500 12px/1 var(--mono);color:var(--accent-2);padding-top:6px}
+.rt-steps h3{font:800 24px/1.05 var(--display);text-transform:uppercase}
+.rt-steps p{color:var(--text-2);font-size:15px;margin-top:4px}
+.rt-areas{margin-top:26px;color:var(--soft);font-size:15.5px}
+.rt-side{position:sticky;top:calc(var(--nav-h) + 20px);display:flex;flex-direction:column;gap:18px}
+.rt-faq{background:var(--bg-2)}
+.rt-more{padding:clamp(80px,10vw,120px) 0;background:var(--bg)}
+.rt-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.rt-link{display:flex;flex-direction:column;gap:6px;padding:22px;border:1px solid var(--line-2);border-radius:16px;background:var(--panel);transition:border-color .3s,background-color .3s}
+.rt-link span{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rt-link b{font:900 32px/1 var(--display);text-transform:uppercase}
+.rt-link em{font-style:normal;font-size:14px;color:var(--text-2)}
+.rt-link:hover{border-color:var(--accent);background:rgba(31,94,255,.08)}
+.rt-link:hover b{color:var(--accent-2)}
+.foot__routes{margin-top:44px;padding-top:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px 22px;align-items:baseline}
+.foot__routes h3{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.foot__routes a{font-size:14px;color:var(--text-2)}
+.foot__routes a:hover{color:var(--accent-2)}
+.route-guides{padding:clamp(80px,10vw,130px) 0;background:var(--bg)}
+.route-guides .h2{margin-bottom:40px}
+@media (max-width:980px){.rt-body__grid{grid-template-columns:1fr}.rt-side{position:static}}

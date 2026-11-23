@@ -221,5 +221,11 @@
   $('#bkNew').addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch (e) {} location.reload(); });
 
   /* ---------- init ---------- */
-  restore(); syncType(); summary(); go(0, false);
+  restore();
+  /* route pages link here with ?from=Durban&to=City: pre-fill the route */
+  const qp = new URLSearchParams(location.search);
+  const clean = v => (v || '').replace(/[^\p{L}\s'.-]/gu, '').trim().slice(0, 40);
+  if (qp.get('from')) form.elements.from.value = clean(qp.get('from'));
+  if (qp.get('to')) form.elements.to.value = clean(qp.get('to'));
+  syncType(); summary(); go(0, false);
 })();

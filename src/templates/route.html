@@ -1,0 +1,81 @@
+<script src="assets/js/za-map.js"></script>
+<script type="application/ld+json">{{JSONLD}}</script>
+
+<section class="rt-hero dark-zone" id="top" aria-labelledby="rt-title">
+  <div class="rt-hero__bg" aria-hidden="true"><img src="{{IMG}}" alt=""></div>
+  <div class="wrap rt-hero__in">
+    <nav class="crumbs" aria-label="Breadcrumb" data-enter>
+      <a class="link" href="index.html">Home</a><span aria-hidden="true">/</span><a class="link" href="routes.html">Routes</a><span aria-hidden="true">/</span><span aria-current="page">Durban to {{TO}}</span>
+    </nav>
+    <h1 id="rt-title" class="phero__title phero__title--sm">
+      <span class="line"><span data-enter class="rt-kicker">Car transport</span></span>
+      <span class="line"><span data-enter>Durban to</span></span>
+      <span class="line"><span data-enter class="accent">{{TO}}.</span></span>
+    </h1>
+    <p class="lede" data-enter>{{INTRO}}</p>
+    <div class="cta__row" data-enter>
+      <a class="btn btn--primary" href="book.html?from=Durban&amp;to={{TO_URL}}">Book Durban → {{TO}} <span class="btn__arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--ghost" href="https://wa.me/27736977731?text={{WA_TEXT}}" target="_blank" rel="noopener">Ask on WhatsApp</a>
+    </div>
+  </div>
+  <div class="rt-strip" data-enter>
+    <div class="wrap strip">
+      <div class="strip__item"><b>{{KM_SHORT}}</b><span>Approx. road distance</span></div>
+      <div class="strip__item"><b>{{ROAD_SHORT}}</b><span>Main route</span></div>
+      <div class="strip__item"><b>Door to door</b><span>Collection &amp; delivery</span></div>
+      <div class="strip__item"><b>24/7</b><span>Satellite tracking</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="rt-body" aria-labelledby="rt-how">
+  <div class="wrap rt-body__grid">
+    <div class="rt-copy">
+      <p class="eyebrow">Durban → {{TO}}</p>
+      <h2 id="rt-how" class="h2" data-split>How your car<br>gets to {{TO}}.</h2>
+      <p class="lede">{{DETAIL}}</p>
+      <ol class="rt-steps">
+        <li data-reveal><span>01</span><div><h3>Book online or on WhatsApp</h3><p>Tell us the car, your Durban pick-up and your {{TO}} drop-off.</p></div></li>
+        <li data-reveal><span>02</span><div><h3>Collected at your door</h3><p>We load your car onto a dedicated car carrier and strap it down.</p></div></li>
+        <li data-reveal><span>03</span><div><h3>On the {{ROAD_SHORT}}, tracked 24/7</h3><p>Satellite tracking on every truck, with comprehensive and GIT cover.</p></div></li>
+        <li data-reveal><span>04</span><div><h3>Delivered in {{TO}}</h3><p>Handed over at your home, office or dealership.</p></div></li>
+      </ol>
+      <p class="rt-areas">We deliver across {{TO}} and nearby, including {{ALSO}}.</p>
+    </div>
+    <aside class="rt-side">
+      <div class="tk-map rt-map"><svg class="route-map" data-lon="{{LON}}" data-lat="{{LAT}}" data-to="{{TO}}" viewBox="0 0 640 560" role="img" aria-label="Map of the route from Durban to {{TO}}"></svg></div>
+      <ul class="tk-facts">
+        <li><span>From</span><b>Durban, KwaZulu-Natal</b></li>
+        <li><span>To</span><b>{{TO}}, {{PROVINCE}}</b></li>
+        <li><span>Approx. distance</span><b>{{KM}}</b></li>
+        <li><span>Main road</span><b>{{ROAD}}</b></li>
+        <li><span>Cover</span><b>Comprehensive + GIT</b></li>
+      </ul>
+      <a class="btn btn--primary btn--full" href="book.html?from=Durban&amp;to={{TO_URL}}">Book this route</a>
+    </aside>
+  </div>
+</section>
+
+<section class="faq rt-faq" aria-labelledby="rt-faq-title">
+  <div class="wrap faq__grid">
+    <div>
+      <p class="eyebrow">FAQ</p>
+      <h2 id="rt-faq-title" class="h2" data-split>Durban to {{TO}},<br><span class="muted">answered.</span></h2>
+    </div>
+    <div class="faq__list">
+{{FAQ_HTML}}
+    </div>
+  </div>
+</section>
+
+<section class="rt-more" aria-labelledby="rt-more-title">
+  <div class="wrap">
+    <p class="eyebrow">More routes from Durban</p>
+    <h2 id="rt-more-title" class="sr-only">Other routes</h2>
+    <div class="rt-links">
+{{OTHER_ROUTES}}
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/route-map.js?v=1"></script>
