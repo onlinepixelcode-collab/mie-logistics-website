@@ -1,0 +1,38 @@
+{
+  "_comment": "Copy for the reverse routes (city to Durban). Keys match the slug of the outbound route in routes.json.",
+  "durbanAreas": ["Umhlanga", "Ballito", "Westville", "Pinetown", "Amanzimtoti"],
+  "routes": {
+    "durban-to-johannesburg": {
+      "intro": "Johannesburg to Durban down the N3: we move cars for people relocating to the coast, dealer stock heading to KZN branches and company cars for fleets with offices in both provinces.",
+      "detail": "We collect your car at your door anywhere in Johannesburg, load it onto one of our own car carriers and bring it down the N3 to Durban, delivering it to your home, office or dealership."
+    },
+    "durban-to-pretoria": {
+      "intro": "Moving a car from Pretoria to Durban? We collect in Tshwane and run the N1 and N3 down to the coast, so your car arrives without 600-odd kilometres on the clock.",
+      "detail": "Popular with families moving to KZN, government and corporate fleet relocations, and dealerships sending stock from Tshwane to coastal branches."
+    },
+    "durban-to-cape-town": {
+      "intro": "Cape Town to Durban is one of the longest car moves in the country. On a dedicated car carrier your car skips the fuel, tolls, overnight stops and extra kilometres of driving it yourself.",
+      "detail": "We collect anywhere in Cape Town, load your car onto our carrier and deliver it door to door in Durban, with 24-hour satellite tracking and comprehensive and goods-in-transit cover the whole way."
+    },
+    "durban-to-gqeberha": {
+      "intro": "From Gqeberha (Port Elizabeth) up the N2 to Durban: dealer stock out of the Nelson Mandela Bay motor hub, private cars for people moving to KZN and company fleet cars.",
+      "detail": "Door-to-door collection anywhere in Nelson Mandela Bay and delivery in the greater Durban area, on our own car carriers with satellite tracking on every truck."
+    },
+    "durban-to-east-london": {
+      "intro": "Car transport from East London to Durban along the N2. A popular route for families relocating to KZN, students' cars and dealership transfers out of Buffalo City.",
+      "detail": "We collect at your door in East London and deliver to your door in Durban, with comprehensive and goods-in-transit cover on every truck and trailer."
+    },
+    "durban-to-bloemfontein": {
+      "intro": "Bloemfontein to Durban, across the Free State on the N5 and down the N3 over Van Reenen's Pass. We move private cars, dealer stock and fleet vehicles from Mangaung to the coast.",
+      "detail": "Collected at your door in Bloemfontein and delivered to your door in Durban, tracked by satellite 24/7."
+    },
+    "durban-to-polokwane": {
+      "intro": "Moving a car from Polokwane to Durban? We take the N1 south and the N3 to the coast, so your car arrives in KZN without nearly 900 km of wear.",
+      "detail": "Door-to-door collection anywhere in Polokwane and delivery in the greater Durban area, for private owners, dealerships and corporate fleets."
+    },
+    "durban-to-mbombela": {
+      "intro": "Car transport from Mbombela (Nelspruit) to Durban, from the Lowveld down to the KZN coast. We move private cars, dealership stock and company fleet vehicles.",
+      "detail": "Collected at your door in Mbombela and delivered to your door in Durban, on our own car carriers with 24-hour satellite tracking."
+    }
+  }
+}

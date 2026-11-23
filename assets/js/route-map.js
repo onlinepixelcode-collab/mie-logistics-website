@@ -5,7 +5,8 @@
     if (!M) { svg.closest('.rt-map').hidden = true; return; }
     const { k, minx, miny, s, ox, oy } = M.proj;
     const P = (lon, lat) => [(lon * k - minx) * s + ox, (-lat - miny) * s + oy];
-    const [x1, y1] = P(31.03, -29.86), [x2, y2] = P(+svg.dataset.lon, +svg.dataset.lat);
+    const fromLon = svg.dataset.fromLon ? +svg.dataset.fromLon : 31.03, fromLat = svg.dataset.fromLat ? +svg.dataset.fromLat : -29.86;
+    const [x1, y1] = P(fromLon, fromLat), [x2, y2] = P(+svg.dataset.lon, +svg.dataset.lat);
     const mx = (x1 + x2) / 2, my = (y1 + y2) / 2, dx = x2 - x1, dy = y2 - y1, bend = -.16;
     const d = `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${(mx - dy * bend).toFixed(1)} ${(my + dx * bend).toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`;
     const provs = Object.keys(M.provinces);
@@ -16,9 +17,9 @@
     provs.forEach((p, i) => { h += `<path class="tk-prov" style="fill:url(#${uid}d)" d="${M.provinces[p]}"/><path class="tk-provline" d="${M.provinces[p]}" mask="url(#${uid}m${i})"/>`; });
     h += `<path class="tk-route-all" d="${d}"/><path class="tk-route-done rm-line" d="${d}"/>`;
     h += `<circle class="tk-city" cx="${x1}" cy="${y1}" r="6"/><circle class="tk-city" cx="${x2}" cy="${y2}" r="6"/>`;
-    const right = x2 < 470;
-    h += `<text class="tk-label" x="${x1 + 12}" y="${y1 + 4}">DURBAN</text>`;
-    h += `<text class="tk-label" x="${right ? x2 + 12 : x2 - 12}" y="${y2 + 4}" text-anchor="${right ? 'start' : 'end'}">${(svg.dataset.to || '').toUpperCase()}</text>`;
+    const label = (x, y, txt) => { const r = x < 470; return `<text class="tk-label" x="${r ? x + 12 : x - 12}" y="${y + 4}" text-anchor="${r ? 'start' : 'end'}">${txt.toUpperCase()}</text>`; };
+    h += label(x1, y1, svg.dataset.from || 'Durban');
+    h += label(x2, y2, svg.dataset.to || '');
     h += `<g class="rm-truck"><circle class="tk-pos-ring" r="10"/><circle class="tk-pos" r="7"/></g>`;
     svg.innerHTML = h;
     const line = svg.querySelector('.rm-line'), dot = svg.querySelector('.rm-truck'), L = line.getTotalLength();
