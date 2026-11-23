@@ -48,9 +48,7 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { setMenu(false); burger.focus(); } });
   const onScroll = () => {
     const y = scrollY;
-    nav.classList.toggle('is-solid', y > 40);
-    if (menu.hidden && y > 500 && y > lastY + 4) nav.classList.add('is-hidden');
-    else if (y < lastY - 4 || y < 500) nav.classList.remove('is-hidden');
+    nav.classList.toggle('is-solid', y > 40);   // header stays pinned (sticky) at all times
     lastY = y;
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
