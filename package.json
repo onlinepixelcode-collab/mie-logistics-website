@@ -1,0 +1,8 @@
+{
+  "name": "mie-logistics-site",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  }
+}

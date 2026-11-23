@@ -1,0 +1,9 @@
+_source/
+_v1/
+previews/
+.claude/
+.DS_Store
+**/.DS_Store
+src/__pycache__/
+node_modules/
+.vercel/

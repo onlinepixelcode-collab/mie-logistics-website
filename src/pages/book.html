@@ -1,0 +1,120 @@
+<!--
+title: Book a Move | M.I.E. Logistics Car Carrier Transport
+desc: Book door-to-door car carrier transport with M.I.E. Logistics in four quick steps: route, cars, your details and confirm. We confirm the price and dates with you.
+-->
+<section class="book" id="top" aria-labelledby="book-title">
+  <div class="wrap">
+    <div class="book__head">
+      <p class="eyebrow" data-enter>Book a move</p>
+      <h1 id="book-title" class="phero__title phero__title--sm"><span class="line"><span data-enter>Book your</span></span><span class="line"><span data-enter class="accent">car carrier.</span></span></h1>
+      <p class="lede" data-enter>Four quick steps. We'll confirm the price and collection date with you before anything is final.</p>
+    </div>
+
+    <!-- progress: the truck drives along as you complete steps -->
+    <div class="bk-progress" data-enter aria-hidden="true">
+      <div class="bk-progress__track"><span class="bk-progress__fill" id="bkFill"></span></div>
+      <img class="bk-progress__truck" id="bkTruck" src="assets/img/truck-side.png" alt="">
+      <ol class="bk-progress__steps">
+        <li class="is-active"><b>01</b>Route</li><li><b>02</b>Cars</li><li><b>03</b>Your details</li><li><b>04</b>Confirm</li>
+      </ol>
+    </div>
+
+    <div class="book__grid">
+      <form class="bk" id="bookForm" novalidate data-enter>
+        <!-- STEP 1 -->
+        <fieldset class="bk-step is-active" data-step="0">
+          <legend class="bk-step__title"><span>01</span>Where is the car going?</legend>
+          <div class="form__row">
+            <label class="field"><span>Collect from (town / city)</span><input name="from" list="bkTowns" placeholder="e.g. Durban" autocomplete="off" required></label>
+            <label class="field"><span>Deliver to (town / city)</span><input name="to" list="bkTowns" placeholder="e.g. Johannesburg" autocomplete="off" required></label>
+          </div>
+          <div class="bk-swap"><button type="button" class="bk-link" id="bkSwap">⇅ Swap pick-up and drop-off</button></div>
+          <div class="form__row">
+            <label class="field"><span>Pick-up address or suburb <em>(optional)</em></span><input name="fromAddr" placeholder="Street or suburb" autocomplete="off"></label>
+            <label class="field"><span>Drop-off address or suburb <em>(optional)</em></span><input name="toAddr" placeholder="Street or suburb" autocomplete="off"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Preferred collection date</span><input name="date" type="date" required></label>
+            <label class="field field--check"><input type="checkbox" name="flexible"><span class="check"></span><span class="field__text">My dates are flexible (a few days either way)</span></label>
+          </div>
+          <datalist id="bkTowns">
+            <option value="Durban"></option><option value="Pietermaritzburg"></option><option value="Johannesburg"></option><option value="Pretoria"></option><option value="Cape Town"></option><option value="Gqeberha"></option><option value="East London"></option><option value="Bloemfontein"></option><option value="Polokwane"></option><option value="Mbombela"></option><option value="Kimberley"></option><option value="George"></option><option value="Richards Bay"></option><option value="Rustenburg"></option>
+          </datalist>
+        </fieldset>
+
+        <!-- STEP 2 -->
+        <fieldset class="bk-step" data-step="1">
+          <legend class="bk-step__title"><span>02</span>Which car(s) are we moving?</legend>
+          <div class="bk-cars" id="bkCars"></div>
+          <button type="button" class="bk-add" id="bkAddCar">+ Add another car</button>
+          <p class="bk-hint">Moving 10 or more? Add the first one and tell us the total in the notes. That's a full load.</p>
+        </fieldset>
+
+        <!-- STEP 3 -->
+        <fieldset class="bk-step" data-step="2">
+          <legend class="bk-step__title"><span>03</span>Who are we moving it for?</legend>
+          <div class="bk-seg" role="radiogroup" aria-label="Customer type">
+            <label><input type="radio" name="ctype" value="Private owner" checked><span>Private owner</span></label>
+            <label><input type="radio" name="ctype" value="Dealership"><span>Dealership</span></label>
+            <label><input type="radio" name="ctype" value="Corporate fleet"><span>Corporate fleet</span></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Full name</span><input name="name" autocomplete="name" required></label>
+            <label class="field"><span>Phone / WhatsApp</span><input name="phone" type="tel" autocomplete="tel" required></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>Email <em>(optional)</em></span><input name="email" type="email" autocomplete="email"></label>
+            <label class="field bk-company" hidden><span>Company / dealership</span><input name="company" autocomplete="organization"></label>
+          </div>
+          <label class="field"><span>Anything we should know? <em>(optional)</em></span><textarea name="notes" rows="3" placeholder="Gate codes, dealership hours, low clearance, full load of 12 cars…"></textarea></label>
+        </fieldset>
+
+        <!-- STEP 4 -->
+        <fieldset class="bk-step" data-step="3">
+          <legend class="bk-step__title"><span>04</span>Check and send</legend>
+          <dl class="bk-review" id="bkReview"></dl>
+          <label class="field field--check"><input type="checkbox" name="agree" required><span class="check"></span><span class="field__text">I understand this is a booking request. M.I.E. Logistics will confirm the price and collection date with me before the move.</span></label>
+        </fieldset>
+
+        <div class="bk-nav">
+          <button type="button" class="btn btn--ghost" id="bkBack" hidden>← Back</button>
+          <span class="bk-nav__spacer"></span>
+          <button type="button" class="btn btn--primary magnetic" id="bkNext">Next: Cars <span class="btn__arrow" aria-hidden="true">→</span></button>
+          <button type="submit" class="btn btn--primary magnetic" id="bkSend" hidden>Send booking on WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></button>
+        </div>
+        <p class="form__note" id="bkNote" role="status">Your answers are saved on this device until you send them.</p>
+
+        <!-- success -->
+        <div class="bk-done" id="bkDone" hidden tabindex="-1">
+          <div class="bk-done__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div>
+          <h2 class="h3">Booking request ready.</h2>
+          <p>WhatsApp has opened with your booking, reference <b id="bkRef">MIE-0000</b>. Press send there and our team will confirm the price and collection date.</p>
+          <p class="bk-done__alt">WhatsApp didn't open? <a class="link" id="bkWaLink" href="https://wa.me/27736977731" target="_blank" rel="noopener">Open it here</a> or call <a class="link" href="tel:+27736977731">073 697 7731</a>.</p>
+          <button type="button" class="btn btn--ghost" id="bkNew">Start a new booking</button>
+        </div>
+      </form>
+
+      <aside class="bk-summary" aria-label="Booking summary" data-enter>
+        <p class="bk-summary__label">Your move</p>
+        <div class="bk-summary__route">
+          <div><span>From</span><b id="sumFrom">—</b></div>
+          <svg viewBox="0 0 120 24" aria-hidden="true"><path d="M2 12h110" /><path d="m104 5 9 7-9 7"/></svg>
+          <div><span>To</span><b id="sumTo">—</b></div>
+        </div>
+        <ul class="bk-summary__list">
+          <li><span>Collection</span><b id="sumDate">—</b></li>
+          <li><span>Cars</span><b id="sumCars">—</b></li>
+          <li><span>For</span><b id="sumWho">Private owner</b></li>
+        </ul>
+        <ul class="bk-summary__perks">
+          <li>Door-to-door collection &amp; delivery</li>
+          <li>24-hour satellite tracking</li>
+          <li>Comprehensive &amp; GIT cover</li>
+        </ul>
+        <p class="bk-summary__help">Prefer to talk? Call or WhatsApp <a class="link" href="tel:+27736977731">073 697 7731</a><br>Mon–Fri 08:00–17:00 · Sat 08:00–13:00</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/book.js?v=2"></script>
