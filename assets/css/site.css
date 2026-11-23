@@ -762,3 +762,17 @@ body[data-page="book"] .cta{display:none}
 :root[data-theme="light"] .theme-toggle .ic-moon{transform:none;opacity:1}
 html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{transition:background-color .5s ease,color .5s ease,border-color .5s ease,fill .5s ease,stroke .5s ease!important}
 @media (max-width:640px){.theme-toggle{width:42px;height:42px}}
+
+/* ================= FOOTER MARQUEE + CREDIT ================= */
+.foot__marquee{overflow:hidden;margin:64px 0 34px;padding:6px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.foot__row{display:flex;align-items:center;gap:clamp(24px,3vw,48px);width:max-content;white-space:nowrap;will-change:transform;animation:footslide 32s linear infinite}
+.foot__row span{font:900 clamp(90px,15vw,260px)/.9 var(--display);text-transform:uppercase;letter-spacing:-.01em;color:transparent;-webkit-text-stroke:1.5px var(--stroke-soft);transition:color .5s,-webkit-text-stroke-color .5s}
+.foot__row span:hover{color:var(--accent);-webkit-text-stroke-color:var(--accent)}
+.foot__row i{font-style:normal;color:var(--accent);font-size:clamp(28px,4vw,64px)}
+.foot__marquee:hover .foot__row{animation-play-state:paused}
+@keyframes footslide{to{transform:translateX(-50%)}}
+.js .foot__row{animation:none}
+.foot__credit{display:inline-flex;align-items:center;gap:6px}
+.foot__credit .heart{display:inline-block;animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.foot__row{animation:none!important}.foot__credit .heart{animation:none}}

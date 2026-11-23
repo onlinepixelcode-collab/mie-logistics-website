@@ -321,23 +321,40 @@
 
   /* ---------- road: top-down truck follows the path ---------- */
   if ($('#roadSvg')) {
-    const svg = $('#roadSvg'), path = $('#roadPath'), truck = $('#roadTruck'), cards = $$('.rcard'), pins = $$('.road__pins circle'), roadHead = $('.road__head');
+    const svg = $('#roadSvg'), path = $('#roadPath'), cab = $('#roadCab'), trailer = $('#roadTrailer'), cards = $$('.rcard'), pins = $$('.road__pins circle'), roadHead = $('.road__head');
     const total = path.getTotalLength();
-    const l0 = 420, l1 = total - 600;
+    /* articulated truck, in road (SVG) units. Source images are 230px wide:
+       cab 205px tall with the hitch 192px from its nose; trailer 1153px tall with the hitch 7px from its front. */
+    const TW = 56, k = TW / 230;
+    const CAB_H = 205 * k, CAB_HITCH = 192 * k, TR_H = 1153 * k, TR_HITCH = 7 * k;
+    const FRONT_AXLE = CAB_HITCH - 8;   // steering axle sits just behind the nose
+    const REAR_AXLE = TR_H * .82;        // trailer axles near the back of the trailer
+    const l0 = REAR_AXLE + 140, l1 = total - 600;
     let scale = 1;
-    const measure = () => { const W = Math.max(innerWidth, 900); scale = W / 1000; svg.style.width = W + 'px'; truck.style.width = Math.round(56 * scale) + 'px'; };
+    const measure = () => {
+      const W = Math.max(innerWidth, 900); scale = W / 1000; svg.style.width = W + 'px';
+      const w = TW * scale;
+      cab.style.width = trailer.style.width = w + 'px';
+      cab.style.transformOrigin = `${w / 2}px ${CAB_HITCH * scale}px`;
+      trailer.style.transformOrigin = `${w / 2}px ${TR_HITCH * scale}px`;
+    };
     measure(); addEventListener('resize', measure);
     cards.forEach((c, i) => { const pt = path.getPointAtLength(l0 + (l1 - l0) * +c.dataset.at); if (pins[i]) { pins[i].setAttribute('cx', pt.x); pins[i].setAttribute('cy', pt.y); } });
+    const deg = (a, b) => Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI + 90;
     const draw = p => {
-      const Ln = l0 + (l1 - l0) * p;
-      const a = path.getPointAtLength(Ln), b = path.getPointAtLength(Math.min(total, Ln + 4)), c0 = path.getPointAtLength(Math.max(0, Ln - 4));
-      const ang = Math.atan2(b.y - c0.y, b.x - c0.x) * 180 / Math.PI + 90;
-      const sx = a.x * scale, sy = a.y * scale;
+      const Lk = l0 + (l1 - l0) * p;                                   // hitch position along the road
+      const hitch = path.getPointAtLength(Lk);
+      const front = path.getPointAtLength(Math.min(total, Lk + FRONT_AXLE));
+      const rear = path.getPointAtLength(Math.max(0, Lk - REAR_AXLE));
+      const cabAng = deg(hitch, front);                                // cab points at where the steering axle is
+      const trAng = deg(rear, hitch);                                  // trailer is dragged by the hitch, so it lags on curves
+      const sx = hitch.x * scale, sy = hitch.y * scale;
       const camX = innerWidth >= 900 ? 0 : innerWidth / 2 - sx;
       const camY = innerHeight * .56 - sy;
       svg.style.transform = `translate3d(${camX}px,${camY}px,0)`;
-      const tw = truck.offsetWidth, th = truck.offsetHeight;
-      truck.style.transform = `translate3d(${sx + camX - tw / 2}px,${innerHeight * .56 - th / 2}px,0) rotate(${ang}deg)`;
+      const w = TW * scale, kx = sx + camX, ky = innerHeight * .56;
+      cab.style.transform = `translate3d(${kx - w / 2}px,${ky - CAB_HITCH * scale}px,0) rotate(${cabAng}deg)`;
+      trailer.style.transform = `translate3d(${kx - w / 2}px,${ky - TR_HITCH * scale}px,0) rotate(${trAng}deg)`;
       if (roadHead) roadHead.style.opacity = 1 - gsap.utils.clamp(0, 1, (p - .1) / .06);
       cards.forEach(c => { const d = Math.abs(p - +c.dataset.at); const o = gsap.utils.clamp(0, 1, (.12 - d) / .04); c.style.opacity = o; c.style.transform = `translateY(${(1 - o) * 30}px)`; });
     };
@@ -369,6 +386,24 @@
         if (s.x <= -s.w) s.x += s.w; if (s.x > 0) s.x -= s.w;
         s.r.style.transform = `translate3d(${s.x}px,0,0) skewX(${-boost * s.dir * .8}deg)`;
       });
+    });
+  }
+
+  /* ---------- footer: M.I.E. Logistics slides, faster when you scroll ---------- */
+  const footRow = $('#footRow');
+  if (footRow) {
+    let fx = 0, fw = footRow.scrollWidth / 2, fboost = 0;
+    addEventListener('resize', () => (fw = footRow.scrollWidth / 2));
+    ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', end: 'bottom top', onUpdate: self => { fboost = gsap.utils.clamp(-14, 14, self.getVelocity() / 160); } });
+    let hover = false;
+    footRow.parentElement.addEventListener('pointerenter', () => (hover = true));
+    footRow.parentElement.addEventListener('pointerleave', () => (hover = false));
+    gsap.ticker.add(() => {
+      fboost *= .93;
+      const speed = hover ? .25 : 1 + Math.abs(fboost);
+      fx -= speed * (fboost < -0.5 ? -1 : 1);
+      if (fx <= -fw) fx += fw; if (fx > 0) fx -= fw;
+      footRow.style.transform = `translate3d(${fx}px,0,0) skewX(${-fboost * .6}deg)`;
     });
   }
 
