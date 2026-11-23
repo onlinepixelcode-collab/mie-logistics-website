@@ -31,6 +31,7 @@ def page(name, title, desc, body, top="light", nav_key=None):
         nav = nav.replace(f'data-nav="{nav_key}"', f'data-nav="{nav_key}" aria-current="page"')
     out = (head.replace("{{TITLE}}", html.escape(title, quote=True)).replace("{{DESC}}", html.escape(desc, quote=True))
            .replace("{{PAGE}}", name).replace("{{TOP}}", top)
+           .replace("{{URL}}", BASE if name == "index" else f"{BASE}{name}.html").replace("{{BASE}}", BASE)
            + nav + '\n<main id="main">\n' + body + "\n" + footer)
     (ROOT / f"{name}.html").write_text(out)
     built.append(name)

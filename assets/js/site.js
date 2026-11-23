@@ -16,6 +16,34 @@
   $$('.year').forEach(n => (n.textContent = year));
   $$('[data-count-from]').forEach(n => { n.dataset.to = year - Number(n.dataset.countFrom); n.textContent = n.dataset.to; });
 
+  /* ---------- footer: live yard status in South African time ---------- */
+  const openEl = $('#openNow'), openDot = $('#openDot');
+  if (openEl) {
+    const HOURS = { 1: [8, 17], 2: [8, 17], 3: [8, 17], 4: [8, 17], 5: [8, 17], 6: [8, 13] };   // 0 = Sunday, closed
+    const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const pad = n => String(n).padStart(2, '0') + ':00';
+    const update = () => {
+      let parts;
+      try {
+        parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'Africa/Johannesburg', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+          .formatToParts(new Date()).map(p => [p.type, p.value]));
+      } catch (e) { return; }
+      const day = DAYS.indexOf(parts.weekday), mins = (+parts.hour) * 60 + (+parts.minute);
+      const today = HOURS[day];
+      if (today && mins >= today[0] * 60 && mins < today[1] * 60) {
+        openEl.textContent = `Open now · until ${pad(today[1])}`;
+        openDot.className = 'foot__dot is-open';
+      } else {
+        let d = day, label = 'today';
+        if (today && mins < today[0] * 60) { /* opens later today */ }
+        else { for (let i = 1; i <= 7; i++) { d = (day + i) % 7; if (HOURS[d]) break; } label = d === (day + 1) % 7 ? 'tomorrow' : DAYS[d]; }
+        openEl.textContent = `Closed · opens ${label} ${pad(HOURS[d][0])}`;
+        openDot.className = 'foot__dot is-closed';
+      }
+    };
+    update(); setInterval(update, 60000);
+  }
+
   /* ---------- theme toggle ---------- */
   const themeBtn = $('#themeToggle');
   const syncThemeBtn = () => {
