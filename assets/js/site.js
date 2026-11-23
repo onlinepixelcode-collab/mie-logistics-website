@@ -422,7 +422,10 @@
 
   ScrollTrigger.sort();
   ScrollTrigger.refresh();
-  addEventListener('load', () => ScrollTrigger.refresh());
+  addEventListener('load', () => {
+    if (!location.hash) { if (lenis) lenis.scrollTo(0, { immediate: true, force: true }); scrollTo(0, 0); }
+    ScrollTrigger.refresh();
+  });
 
   /* ================= helpers ================= */
   function buildMap() {
