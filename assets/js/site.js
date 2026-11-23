@@ -53,6 +53,15 @@
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
+  /* ---------- showreel videos play only while on screen ---------- */
+  const reelVids = $$('.reel__item video');
+  if (reelVids.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !reduce) { e.target.preload = 'auto'; e.target.play().catch(() => {}); } else e.target.pause();
+    }), { threshold: .25 });
+    reelVids.forEach(v => io.observe(v));
+  }
+
   /* ---------- page-specific builders that do not need GSAP ---------- */
   buildMap();
   setupForm();
@@ -153,18 +162,13 @@
   /* ---------- progress bar ---------- */
   gsap.to('.progress span', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: .3 } });
 
-  /* ---------- cursor + magnetic ---------- */
+  /* ---------- cursor (buttons stay put on hover: no magnetic pull) ---------- */
   if (fine && !reduce) {
     const cur = $('.cursor'), dot = $('.cursor__dot'), ring = $('.cursor__ring');
     const dx = gsap.quickTo(dot, 'x', { duration: .1 }), dy = gsap.quickTo(dot, 'y', { duration: .1 });
     const rx = gsap.quickTo(ring, 'x', { duration: .45, ease: 'power3' }), ry = gsap.quickTo(ring, 'y', { duration: .45, ease: 'power3' });
     addEventListener('pointermove', e => { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); });
     document.addEventListener('pointerover', e => cur.classList.toggle('is-hover', !!e.target.closest('a,button,.card,summary,.cities li,input,select,textarea')));
-    $$('.magnetic').forEach(el => {
-      const xTo = gsap.quickTo(el, 'x', { duration: .6, ease: 'elastic.out(1,.4)' }), yTo = gsap.quickTo(el, 'y', { duration: .6, ease: 'elastic.out(1,.4)' });
-      el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * .3); yTo((e.clientY - r.top - r.height / 2) * .4); });
-      el.addEventListener('pointerleave', () => { xTo(0); yTo(0); });
-    });
   }
 
   if (reduce) { gsap.set('[data-reveal], [data-reveal] img', { clearProps: 'all' }); return; }
