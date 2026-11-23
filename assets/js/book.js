@@ -210,6 +210,7 @@
     window.open(url, '_blank', 'noopener');
     $('#bkRef').textContent = ref;
     $('#bkWaLink').href = url;
+    const tl = $('#bkTrackLink'); if (tl) tl.href = 'track.html?ref=' + encodeURIComponent(ref);
     try { localStorage.removeItem(KEY); } catch (e) {}
     steps.forEach(s => (s.hidden = true));
     $('.bk-nav', form).hidden = true; note.hidden = true;

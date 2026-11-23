@@ -69,6 +69,7 @@
 
   /* ---------- page transitions ---------- */
   const curtain = $('.curtain'), cA = $('.curtain__a'), cB = $('.curtain__b'), cWord = $('.curtain__b span');
+  if (curtain && hasGsap) curtain.style.animation = 'none';   // script is in charge, cancel the CSS safety net
   const isInternal = a => {
     if (!a || a.target === '_blank' || a.hasAttribute('download')) return false;
     const url = new URL(a.href, location.href);
@@ -506,7 +507,7 @@
     const WA = 'https://wa.me/27736977731';
     const add = (who, html) => { const m = document.createElement('div'); m.className = 'msg msg--' + who; m.innerHTML = html; log.appendChild(m); log.scrollTop = log.scrollHeight; return m; };
     const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const linkify = s => esc(s).replace(/(https?:\/\/[^\s)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\b(contact\.html#quote)\b/g, '<a href="$1">quote form</a>').replace(/\b(book\.html)\b/g, '<a href="$1">booking page</a>');
+    const linkify = s => esc(s).replace(/(https?:\/\/[^\s)]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\b(contact\.html#quote)\b/g, '<a href="$1">quote form</a>').replace(/\b(book\.html)\b/g, '<a href="$1">booking page</a>').replace(/\b(track\.html)\b/g, '<a href="$1">tracking page</a>');
     let opened = false;
     const toggle = open => {
       panel.hidden = !open; fab.setAttribute('aria-expanded', String(open));
@@ -520,11 +521,15 @@
     const rules = [
       [/\b(hi|hello|hey|howzit|good (morning|afternoon|evening))\b/i, "Hi there! Are you looking to move one car, a few, or a full load? Tell me where it's going and I'll point you the right way."],
       [/(furniture|boxes|freight|cargo|parcel|container|household|goods|pallet|machinery|truck load of)/i, "M.I.E. Logistics only moves cars and other passenger vehicles like SUVs and bakkies, on dedicated car carriers. For anything else we're not the right fit, sorry!"],
+      [/(talk to a person|human|agent|someone|speak to|call me|real person)/i, `Of course. Call or WhatsApp our team on 073 697 7731 (${WA}). We're available Mon–Fri 08:00–17:00 and Sat 08:00–13:00.`],
+      [/(motorbike|motorcycle|bike|boat|caravan|trailer)/i, "We specialise in cars and other passenger vehicles like SUVs and bakkies on dedicated car carriers. For anything else, please check with our team on WhatsApp: https://wa.me/27736977731"],
+      [/(non.?runner|doesn.?t start|broken|not running|won.?t start)/i, "Mark the car as a non-runner when you book (book.html) and our team will confirm how it can be loaded."],
+      [/(pay|payment|deposit|invoice|eft|card)/i, "Payment details are confirmed by our team together with your quote. WhatsApp us on https://wa.me/27736977731 or call 073 697 7731."],
       [/(book|booking|reserve|schedule)/i, "You can book in four quick steps on our booking page (book.html): route, car(s), your details, then confirm. It sends the booking to us on WhatsApp and we confirm the price and collection date with you."],
       [/(quote|price|cost|how much|rate|charge|fee)/i, `Prices depend on the car, the route and the date. The quickest way is the quote form (contact.html#quote), which sends your details straight to us on WhatsApp. Or message us directly: ${WA}`],
       [/(route|area|cover|where do you|johannesburg|joburg|jhb|pretoria|cape town|gqeberha|port elizabeth|east london|bloemfontein|polokwane|mbombela|nelspruit|province|gauteng)/i, "We run door to door on all the major national routes out of Durban: Gauteng (Johannesburg and Pretoria), Cape Town, Gqeberha, East London, Bloemfontein, Polokwane and Mbombela. Not sure about your town? Ask us and we'll confirm."],
       [/(insur|git|damage|cover(ed)?|safe|scratch)/i, "Yes. All our trucks and trailers carry full comprehensive insurance plus goods-in-transit (GIT) cover, from collection to handover."],
-      [/(track|where is my|update|status|gps|satellite)/i, `Every M.I.E. truck has 24-hour satellite tracking. For an update on your car, WhatsApp us on ${WA} or call 073 697 7731.`],
+      [/(track|where is my|update|status|gps|satellite)/i, `Every M.I.E. truck has 24-hour satellite tracking. Follow your booking on our tracking page (track.html) with your booking reference and the last 4 digits of your phone, or WhatsApp us on ${WA} for a live location.`],
       [/(hour|open|close|time|saturday|sunday|weekend)/i, "We're open Monday to Friday 08:00–17:00 and Saturday 08:00–13:00."],
       [/(address|located|where are you|yard|office|visit|directions|phoenix)/i, "Our yard is at 80 Hunslet Road, Phoenix Industrial, Durban. Directions: https://www.google.com/maps/search/?api=1&query=80+Hunslet+Road+Phoenix+Industrial+Durban"],
       [/(how long|days|transit|when will|delivery time|eta)/i, "Transit time depends on the route and the date. When you request a quote, our team confirms the collection and delivery dates with you."],

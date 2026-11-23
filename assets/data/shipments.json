@@ -1,0 +1,20 @@
+{
+  "updated": "2026-11-23T13:44+02:00",
+  "shipments": {
+    "3c41f3a229782916901565ebdb697fa0fb62bd62cb88f22a26a4d16fb11801f7": {
+      "history": {
+        "confirmed": "2026-11-21T10:15+02:00",
+        "collected": "2026-11-23T07:40+02:00",
+        "in_transit": "2026-11-23T09:05+02:00"
+      },
+      "from": "Durban",
+      "to": "Johannesburg",
+      "cars": 2,
+      "eta": "2026-11-26",
+      "note": "Left Durban this morning, travelling on the N3.",
+      "status": "in_transit",
+      "updated": "2026-11-23T09:05+02:00",
+      "demo": true
+    }
+  }
+}

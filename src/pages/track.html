@@ -1,0 +1,74 @@
+<!--
+title: Track Your Car | M.I.E. Logistics
+top: dark
+desc: Track your car on an M.I.E. Logistics car carrier. Enter your booking reference and the last 4 digits of your phone number to see where your move is.
+-->
+<script src="assets/js/za-map.js"></script>
+<section class="track dark-zone" id="top" aria-labelledby="track-title">
+  <div class="track__bg" aria-hidden="true"><img src="assets/video/aerial.jpg" alt=""></div>
+  <div class="wrap track__in">
+    <div class="track__head">
+      <p class="eyebrow" data-enter>Track my vehicle</p>
+      <h1 id="track-title" class="phero__title phero__title--sm"><span class="line"><span data-enter>Where's</span></span><span class="line"><span data-enter class="accent">my car?</span></span></h1>
+      <p class="lede" data-enter>Enter the booking reference we sent you and the last 4 digits of the phone number you booked with.</p>
+    </div>
+
+    <form class="tk-form" id="trackForm" novalidate data-enter>
+      <label class="field"><span>Booking reference</span><input name="ref" placeholder="e.g. MIE-T6S8XE" autocomplete="off" autocapitalize="characters" spellcheck="false" required></label>
+      <label class="field"><span>Last 4 digits of your phone</span><input name="last4" inputmode="numeric" maxlength="4" placeholder="e.g. 4567" autocomplete="off" required></label>
+      <button class="btn btn--primary" type="submit">Track my car <span class="btn__arrow" aria-hidden="true">→</span></button>
+      <p class="tk-demo">Preview the tracker: use <button type="button" class="bk-link" id="tkDemo">MIE-DEMO1 · 0000</button></p>
+    </form>
+  </div>
+</section>
+
+<section class="tk-result" id="trackResult" aria-live="polite" hidden>
+  <div class="wrap">
+    <div class="tk-card" id="tkFound" hidden>
+      <div class="tk-card__top">
+        <div>
+          <p class="tk-ref"><span id="tkRef">MIE-0000</span><em class="tk-badge" id="tkDemoBadge" hidden>Demo shipment</em></p>
+          <h2 class="tk-route"><span id="tkFrom">Durban</span><svg viewBox="0 0 60 20" aria-hidden="true"><path d="M2 10h50"/><path d="m46 4 8 6-8 6"/></svg><span id="tkTo">Johannesburg</span></h2>
+        </div>
+        <div class="tk-status" id="tkStatusPill"><i class="dot-live"></i><span id="tkStatus">In transit</span></div>
+      </div>
+
+      <div class="tk-bar" aria-hidden="true">
+        <div class="tk-bar__track"><span class="tk-bar__fill" id="tkFill"></span></div>
+        <img class="tk-bar__truck" id="tkTruck" src="assets/img/truck-side.png" alt="">
+      </div>
+
+      <div class="tk-grid">
+        <ol class="tk-steps" id="tkSteps">
+          <li data-s="confirmed"><b>Booking confirmed</b><span>We've locked in your move.</span><time></time></li>
+          <li data-s="collected"><b>Collected</b><span>Your car is loaded and strapped down.</span><time></time></li>
+          <li data-s="in_transit"><b>In transit</b><span>On the road, tracked by satellite 24/7.</span><time></time></li>
+          <li data-s="out_for_delivery"><b>Out for delivery</b><span>Arriving at the drop-off today.</span><time></time></li>
+          <li data-s="delivered"><b>Delivered</b><span>Handed over at the door.</span><time></time></li>
+        </ol>
+        <div class="tk-side">
+          <div class="tk-map"><svg id="tkMap" viewBox="0 0 640 560" role="img" aria-label="Map of the route"></svg></div>
+          <ul class="tk-facts">
+            <li><span>Expected delivery</span><b id="tkEta">—</b></li>
+            <li><span>Cars on this booking</span><b id="tkCars">—</b></li>
+            <li><span>Last update</span><b id="tkUpdated">—</b></li>
+          </ul>
+          <p class="tk-note" id="tkNote" hidden></p>
+          <a class="btn btn--ghost btn--full" id="tkWa" href="https://wa.me/27736977731" target="_blank" rel="noopener">Ask for a live location on WhatsApp</a>
+          <p class="tk-small">Map position is based on the latest status, not live GPS. Our team can share the truck's live satellite position on request.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tk-card tk-card--empty" id="tkMissing" hidden>
+      <h2 class="h3">We couldn't find that booking.</h2>
+      <p>Check the reference and the last 4 digits of the phone number you booked with. New bookings appear here once our team has confirmed them.</p>
+      <div class="cta__row">
+        <a class="btn btn--primary" href="https://wa.me/27736977731?text=Hi%20M.I.E.%2C%20can%20I%20get%20an%20update%20on%20my%20booking%3F" target="_blank" rel="noopener">Ask us on WhatsApp</a>
+        <a class="btn btn--ghost" href="tel:+27736977731">Call 073 697 7731</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/track.js?v=1"></script>
